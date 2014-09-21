@@ -1,5 +1,5 @@
 ---
-output: html_document
+output: pdf_document
 ---
 ## Reproducible Research: Peer Assessment 2
 
@@ -64,8 +64,8 @@ stormData <- convertAid(stormData, "CROPDMGEXP", "cropDamage")
 names(stormData)
 property <- sortAid("propertyDamage", dataset = stormData)
 crop <- sortAid("cropDamage", dataset = stormData)
-property$propertyDamage <- property$propertyDamage/10^9
-crop$cropDamage <- crop$cropDamage/10^9
+property$propertyDamage <- property$propertyDamage/10^6
+crop$cropDamage <- crop$cropDamage/10^6
 ```
 
 
@@ -91,11 +91,11 @@ The most harmful weather event to population health is Tornado.It is cause for b
 #### Across the United States, which types of events have the greatest economic consequences?
 ```{r plots2}
 propertyPlot <- qplot(EVTYPE, data = property, weight = propertyDamage, geom = "bar", binwidth = 1) + 
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + scale_y_continuous("Property Damage in Billions $")+ 
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + scale_y_continuous("Property Damage (million $)")+ 
     xlab("Severe Weather Type") + ggtitle("Total Property Damage by\n Severe Weather Events ")
 
 cropPlot<- qplot(EVTYPE, data = crop, weight = cropDamage, geom = "bar", binwidth = 1) + 
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + scale_y_continuous("Crop Damage in Billions $") + 
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + scale_y_continuous("Crop Damage (million $)") + 
     xlab("Severe Weather Type") + ggtitle("Total Crop Damage by \nSevere Weather Events")
 grid.arrange(propertyPlot, cropPlot, ncol = 2)
 ```
